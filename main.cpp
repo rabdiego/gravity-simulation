@@ -1,23 +1,34 @@
 #define _USE_MATH_DEFINES
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <string>
 #include <cmath>
-#include <map>
 #include <vector>
 #include <ctime>
 
 sf::Color getColor(int index) {
-    std::map <int, sf::Color> colorMap = {
-        {0, sf::Color::Red},
-        {1, sf::Color::Green},
-        {2, sf::Color::Blue},
-        {3, sf::Color::Yellow},
-        {4, sf::Color::Magenta},
-        {5, sf::Color::Cyan}
-    };
-    return colorMap[index];
+    switch (index) {
+        case 0:
+            return sf::Color::Red;
+            break;
+        case 1:
+            return sf::Color::Green;
+            break;
+        case 2:
+            return sf::Color::Blue;
+            break;
+        case 3:
+            return sf::Color::Yellow;
+            break;
+        case 4:
+            return sf::Color::Magenta;
+            break;
+        case 5:
+            return sf::Color::Cyan;
+            break;
+        default:
+            return sf::Color::White;
+            break;
+    }
 }
 
 double getDistance(int a[2], int b[2]) {
