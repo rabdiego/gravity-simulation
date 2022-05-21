@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
@@ -6,16 +8,17 @@
 #include <vector>
 #include <ctime>
 
-const double PI = 3.1415926535;
-
-std::map <int, sf::Color> colorMap = {
-    {0, sf::Color::Red},
-    {1, sf::Color::Green},
-    {2, sf::Color::Blue},
-    {3, sf::Color::Yellow},
-    {4, sf::Color::Magenta},
-    {5, sf::Color::Cyan}
-};
+sf::Color getColor(int index) {
+    std::map <int, sf::Color> colorMap = {
+        {0, sf::Color::Red},
+        {1, sf::Color::Green},
+        {2, sf::Color::Blue},
+        {3, sf::Color::Yellow},
+        {4, sf::Color::Magenta},
+        {5, sf::Color::Cyan}
+    };
+    return colorMap[index];
+}
 
 double getDistance(int a[2], int b[2]) {
     return sqrt(pow((a[0] - b[0]), 2) + pow((a[1] - b[1]), 2));
@@ -23,7 +26,7 @@ double getDistance(int a[2], int b[2]) {
 
 double getAngle(int a[2], int b[2]) {
     double angle = atan2((a[0] - b[0]), (a[1] - b[1]));
-    return (3*PI)/2 - angle;
+    return 3*M_PI_2 - angle;
 }
 
 class CelestialObject {
@@ -36,7 +39,7 @@ class CelestialObject {
             this->radius = radius;
             position[0] = x;
             position[1] = y;
-            this->color = colorMap[color];
+            this->color = getColor(color);
         }
 
         sf::CircleShape getShape() {
@@ -60,7 +63,6 @@ class Star : public CelestialObject {
 class Planet : public CelestialObject {
     public:
         double velocity[2];
-
 };
 
 int main() {
@@ -96,8 +98,8 @@ int main() {
                 planet.setParameters(5, mousePosition[0], mousePosition[1], rand()%6);
 
                 planets.push_back(planet);
-                planets[click].velocity[0] = 5*cos(mouseAngle + PI/2);
-                planets[click].velocity[1] = 5*sin(mouseAngle + PI/2);
+                planets[click].velocity[0] = 5*cos(mouseAngle + M_PI_2);
+                planets[click].velocity[1] = 5*sin(mouseAngle + M_PI_2);
                 
                 click++;
             }
